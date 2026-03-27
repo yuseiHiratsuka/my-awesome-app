@@ -1,0 +1,21 @@
+{
+  "name": "my-awesome-app",
+  "version": "1.0.0",
+  "description": "A simple Node.js web application",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "test": "node --test tests/",
+    "lint": "eslint src/"
+  },
+  "keywords": ["web", "app"],
+  "author": "yuseiHiratsuka",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.56.0"
+  }
+}
