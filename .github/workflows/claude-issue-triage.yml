@@ -1,0 +1,32 @@
+name: Claude Issue Triage (Vulnerable Demo)
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run Issue Triage
+        uses: anthropics/claude-code-action@v1
+        with:
+          # OAuth token を使用（API key の場合は anthropic_api_key を指定）
+          anthropic_api_key: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # ⚠️ 脆弱な設定: 全ユーザーにトリガーを許可
+          allowed_non_write_users: "*"
+          claude_args: >-
+            --allowedTools "Bash,Read,Write,Edit,Glob,Grep"
+          prompt: |
+            You're a GitHub issue first responder.
+            **Title:** ${{ github.event.issue.title }}
+            **Body:** ${{ github.event.issue.body }}
+
+            Analyze this issue and provide a helpful response.
