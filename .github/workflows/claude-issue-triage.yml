@@ -25,6 +25,7 @@ jobs:
           allowed_non_write_users: "*"
           claude_args: >-
             --allowedTools "Bash,Read,Write,Edit,Glob,Grep"
+            --model "claude-3-5-sonnet-20241022"
           prompt: |
             You're a GitHub issue first responder.
             **Title:** ${{ github.event.issue.title }}
