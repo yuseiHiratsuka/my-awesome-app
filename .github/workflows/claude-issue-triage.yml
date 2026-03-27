@@ -20,6 +20,7 @@ jobs:
           # OAuth token を使用（API key の場合は anthropic_api_key を指定）
           anthropic_api_key: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          show_full_output: true
           # ⚠️ 脆弱な設定: 全ユーザーにトリガーを許可
           allowed_non_write_users: "*"
           claude_args: >-
